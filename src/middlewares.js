@@ -5,7 +5,9 @@ const compression = require('compression')
 const cors = require('cors')
 
 module.exports = app => {
-  app.use(morgan('dev'))
+  if (process.env.NODE_ENV !== 'test') {
+    app.use(morgan('dev'))
+  }
   app.use(helmet())
   app.use(cors({
     allowMethos: ['GET', 'POST'],

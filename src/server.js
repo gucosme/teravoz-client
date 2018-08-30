@@ -10,5 +10,9 @@ consign({ cwd: 'src', verbose: false })
   .then('routes')
   .into(app)
 
-const port = process.env.PORT
-app.listen(port, debug(`Service running on port ${port}`))
+if (process.env.NODE_ENV !== 'test') {
+  const port = process.env.PORT
+  app.listen(port, debug(`Service running on port ${port}`))
+}
+
+module.exports = app
