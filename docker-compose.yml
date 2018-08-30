@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    teravoz:
+        build: .
+        container_name: teravoz-client
+        command: node src/server.js
+        ports:
+            - '3000:8080'
+        volumes:
+            - './src:/usr/app/src'
+        environment:
+            DEBUG: service:*
+            PORT: 8080
+            NODE_ENV: production
