@@ -5,9 +5,11 @@ const debug = require('debug')('service:start')
 const app = express()
 
 consign({ cwd: 'src', verbose: false })
-  .include('middlewares.js')
+  .include('schemas.js')
+  .then('middlewares.js')
   .then('controllers')
   .then('routes')
+  .then('errorHandler.js')
   .into(app)
 
 if (process.env.NODE_ENV !== 'test') {
