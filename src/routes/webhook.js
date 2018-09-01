@@ -1,5 +1,5 @@
 module.exports = app => {
-  const { webhook } = app.controllers
+  const { webhook } = app.components
 
   app.route('/webhook')
     .post(webhook.index)
