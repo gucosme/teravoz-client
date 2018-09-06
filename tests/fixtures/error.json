@@ -1,0 +1,9 @@
+{
+  "badRequestError": {
+    "error": {
+      "title": "Bad Request",
+      "name": "BadRequestError",
+      "message": "Body is not a valid object"
+    }
+  }
+}
