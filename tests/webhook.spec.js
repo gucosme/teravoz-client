@@ -46,7 +46,7 @@ describe('POST /webhook', () => {
     expect(calls[0]).to.be.deep.equal(call.new)
   })
 
-  it('should update call type, add a new customer and then delegate the call', async () => {
+  it('should update call type, add a new customer and then delegate the call to 900', async () => {
     const { status, body } =
       await request.post('/webhook')
         .send(call.standby)
@@ -55,7 +55,7 @@ describe('POST /webhook', () => {
 
     const calls = await callStore.get()
     const customers = await customerStore.get()
-    const { delegate } = app.components.teravoz
+    const { delegate } = teravoz
 
     expect(calls.length).to.be.equal(1)
     expect(calls[0]).to.be.deep.equal(call.standby)
@@ -64,5 +64,22 @@ describe('POST /webhook', () => {
 
     expect(delegate.callCount).to.be.equal(1)
     expect(delegate.getCall(0).args).to.be.deep.equal([call.standby, 900])
+  })
+
+  it('should not add a new customer and then delegate the call to 901', async () => {
+    const { status, body } =
+      await request.post('/webhook')
+        .send(call.standby)
+    expect(status).to.be.equal(200)
+    expect(body).to.be.deep.equal({ status: 'ok' })
+
+    const customers = await customerStore.get()
+    const { delegate } = teravoz
+
+    expect(customers.length).to.be.equal(1)
+    expect(customers[0]).to.be.deep.equal(R.pick(['their_number'], call.standby))
+
+    expect(delegate.callCount).to.be.equal(2)
+    expect(delegate.getCall(1).args).to.be.deep.equal([call.standby, 901])
   })
 })
