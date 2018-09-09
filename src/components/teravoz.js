@@ -3,6 +3,7 @@
  * It will not interact with teravoz API and will always
  * return { status: 'ok' }
  */
+
 const axios = require('axios')
 const debug = require('debug', 'service:components:teravoz')
 

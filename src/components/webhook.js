@@ -40,7 +40,7 @@ module.exports = app => {
 
     if (actorValid) {
       res.send(200).json(OK)
-      next()
+      return next()
     }
 
     await setOrUpdateCall(body)
@@ -51,7 +51,7 @@ module.exports = app => {
     }
 
     res.status(200).json(OK)
-    next()
+    return next()
   }
 
   return {
