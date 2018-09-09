@@ -10,12 +10,12 @@ const writeFile = promisify(fs.writeFile)
 const removeFile = promisify(fs.unlink)
 
 module.exports = () => name => {
-  const ROOT = process.env.NODE_PATH || './'
+  const ROOT = process.env.NODE_PATH || '.'
   const filePath = `${ROOT}/store-data/${name}.json`
 
-  const getFiles = async () => {
+  const checkStore = async () => {
     const files = await readdir(`${ROOT}/store-data`)
-    return files.length > 0
+    return R.find(R.equals(`${name}.json`), files)
   }
 
   const init = async () => {
@@ -27,8 +27,8 @@ module.exports = () => name => {
       else throw error
     }
 
-    const files = await getFiles()
-    if (!files.lenght > 0) {
+    const hasStore = await checkStore()
+    if (!hasStore) {
       const data = JSON.stringify([])
       await writeFile(filePath, data)
     }
