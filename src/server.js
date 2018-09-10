@@ -13,11 +13,18 @@ consign({ cwd: 'src', verbose: false })
   .then('components/webhook.js')
   .then('routes')
   .then('errorHandler.js')
+  .then('components/next.js')
   .into(app)
 
 if (process.env.NODE_ENV !== 'test') {
-  const port = process.env.PORT
-  app.listen(port, debug(`Service running on port ${port}`))
+  const { nextApp, nextHandler } = app.components.next
+  const port = process.env.PORT || 3000
+
+  nextApp.prepare().then(() => {
+    app.get('*', nextHandler)
+
+    app.listen(port, debug(`Service running on port ${port}`))
+  })
 }
 
 module.exports = app

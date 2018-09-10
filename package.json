@@ -5,7 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "NODE_ENV=test mocha tests"
+    "test": "NODE_ENV=test mocha tests",
+    "next:dev": "next"
   },
   "author": "Gustavo Cosme",
   "license": "MIT",
@@ -20,7 +21,10 @@
     "helmet": "^3.13.0",
     "http-errors": "^1.7.0",
     "morgan": "^1.9.0",
+    "next": "^6.1.2",
     "ramda": "^0.25.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "yup": "^0.26.3"
   },
   "devDependencies": {
