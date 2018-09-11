@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import io from 'socket.io-client'
 import { Container } from 'reactstrap'
@@ -19,6 +20,10 @@ class Index extends Component {
 
   static defaultProps = {
     calls: []
+  }
+
+  static propTypes = {
+    calls: PropTypes.array
   }
 
   state = {
