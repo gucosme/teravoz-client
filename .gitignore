@@ -94,5 +94,6 @@ tags
 # Persistent undo
 [._]*.un~
 
+store-data
 
 # End of https://www.gitignore.io/api/vim,node

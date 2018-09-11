@@ -5,8 +5,11 @@ WORKDIR /usr/app
 COPY package*.json ./
 RUN npm install --quiet --production
 
-COPY ./src .
+COPY . .
 
-EXPOSE 8080
+RUN npm run build
+
+EXPOSE 3000
 USER node
+
 CMD ["node", "src/server.js"]

@@ -3,14 +3,21 @@ const createError = require('http-errors')
 const debug = require('debug')('service:components:webhook')
 
 module.exports = app => {
-  const { teravoz } = app.components
+  const { teravoz, socket } = app.components
   const { call, actor } = app.schemas
   const { callStore, customerStore } = app.stores
   const OK = { status: 'ok' }
 
   const setOrUpdateCall = async call => {
-    if (R.equals(call.type, 'call.new')) await callStore.set(call)
-    else await callStore.update({ call_id: call.call_id }, call)
+    if (R.equals(call.type, 'call.new')) {
+      debug('Saving new call with id: ', call.call_id)
+      await callStore.set(call)
+      debug('Emitting call to socket')
+      socket.io.emit('call:new', call)
+    } else {
+      await callStore.update({ call_id: call.call_id }, call)
+      socket.io.emit('call:update', call)
+    }
   }
 
   const checkAndRegister = async incomingCustomer => {

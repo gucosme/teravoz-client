@@ -1,5 +1,6 @@
 module.exports = {
-  "extends": "standard",
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react"],
   "env": {
     "node": true,
     "mocha": true

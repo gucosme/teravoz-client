@@ -10,7 +10,9 @@ consign({ cwd: 'src', verbose: false })
   .then('components/store.js')
   .then('stores.js')
   .then('components/teravoz.js')
+  .then('components/socket.js')
   .then('components/webhook.js')
+  .then('components/calls.js')
   .then('routes')
   .then('errorHandler.js')
   .then('components/next.js')
@@ -18,12 +20,13 @@ consign({ cwd: 'src', verbose: false })
 
 if (process.env.NODE_ENV !== 'test') {
   const { nextApp, nextHandler } = app.components.next
+  const { server } = app.components.socket
   const port = process.env.PORT || 3000
 
   nextApp.prepare().then(() => {
     app.get('*', nextHandler)
 
-    app.listen(port, debug(`Service running on port ${port}`))
+    server.listen(port, debug(`Service running on port ${port}`))
   })
 }
 

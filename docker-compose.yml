@@ -7,12 +7,12 @@ services:
         container_name: teravoz-client
         command: node src/server.js
         ports:
-            - '3000:8080'
+            - '3000:3000'
         volumes:
             - ./src:/usr/app/src:rw
         environment:
-            DEBUG: service:*
-            PORT: 8080
+            PORT: 3000
+            API_URL: teravoz:3000
             NODE_ENV: production
             NODE_PATH: ./src
             CALL_STORE_NAME: 'call'
