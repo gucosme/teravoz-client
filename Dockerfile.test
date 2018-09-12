@@ -1,0 +1,15 @@
+FROM node:8.11.4-alpine
+
+WORKDIR /usr/app
+
+# COPY . .
+COPY package*.json ./
+COPY src ./src
+COPY tests ./tests
+
+RUN npm cache clean --force \
+  && npm install
+
+USER node
+
+CMD ["npm", "test"]

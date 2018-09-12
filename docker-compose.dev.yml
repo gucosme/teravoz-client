@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    teravoz:
+        build:
+          dockerfile: Dockerfile.dev
+          context: .
+        user: node
+        container_name: teravoz-client-dev
+        ports:
+            - '3000:3000'
+        volumes:
+            - .:/usr/app:rw
+        environment:
+            PORT: 3000
+            DEBUG: service:*
+            API_URL: teravoz:3000
+            NODE_ENV: development
+            NODE_PATH: ./src
+            CALL_STORE_NAME: 'call-dev'
+            CUSTOMER_STORE_NAME: 'customer-dev'

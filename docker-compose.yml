@@ -5,7 +5,6 @@ services:
         build: .
         user: node
         container_name: teravoz-client
-        command: node src/server.js
         ports:
             - '3000:3000'
         volumes:
