@@ -15,7 +15,7 @@ With that, you just need to clone this repo, cd into it and then run:
 $ docker-compose up --build
 ```
 
-And it will do the heavy leafiting for you.
+And it will do all the heavy leafiting for you.
 
 With that you're able to hit http://localhost:3000 in your browser and see the calls and their status if there are any.
 
@@ -53,3 +53,17 @@ With the service running you can POST to the /webhook endpoint with a valid call
 Right after that you'll be able to see a new call appears in the dashboard.
 
 If you want to update a existing call, you just need to hit the same route with a call object containing the same call_id from the existing one.
+
+### Builds for Testing and Development
+
+This project also contains specific compose and Dockerfiles to run test and dev environments. To run them you just need run the following:
+
+__Dev__
+```bash
+$ docker-compose -f docker-compose.dev.yml up --build
+```
+
+__Test__
+```bash
+$ docker-compose -f docker-compose.test.yml up --build
+```
